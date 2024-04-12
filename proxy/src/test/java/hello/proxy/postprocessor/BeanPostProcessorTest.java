@@ -11,58 +11,61 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+@Slf4j
 public class BeanPostProcessorTest {
 
-    @Test
-    void basicConfig() {
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(BeanPostProcessorConfig.class);
+	@Test
+	void basicConfig() {
+		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(BeanPostProcessorConfig.class);
 
-        //beanA 이름으로 B 객체가 빈으로 등록된다.
-        B b = applicationContext.getBean("beanA", B.class);
-        b.helloB();
+		//Object B will be registered as a name of "beanA"
+		B b = applicationContext.getBean("beanA", B.class);
+		b.helloB();
 
-        //A는 빈으로 등록되지 않는다.
-        Assertions.assertThrows(NoSuchBeanDefinitionException.class, () -> applicationContext.getBean(A.class));
-    }
+		//Object A won't be registered as bean.
+		Assertions.assertThrows(NoSuchBeanDefinitionException.class,
+				() -> applicationContext.getBean( A.class));
+	}
 
-    @Slf4j
-    @Configuration
-    static class BeanPostProcessorConfig {
-        @Bean(name = "beanA")
-        public A a() {
-            return new A();
-        }
+	@Slf4j
+	@Configuration
+	static class BeanPostProcessorConfig {
+		@Bean(name = "beanA")
+		public A a() {
+			return new A();
+		}
 
-        @Bean
-        public AToBPostProcessor helloPostProcessor() {
-            return new AToBPostProcessor();
-        }
-    }
+		@Bean
+		public AToBPostProcessor helloPostProcessor() {
+			return new AToBPostProcessor();
+		}
+	}
 
-    @Slf4j
-    static class A {
-        public void helloA() {
-            log.info("hello A");
-        }
-    }
 
-    @Slf4j
-    static class B {
-        public void helloB() {
-            log.info("hello B");
-        }
-    }
+	@Slf4j
+	static class A {
+		public void helloA() {
+			log.info("hello A");
+		}
+	}
 
-    @Slf4j
-    static class AToBPostProcessor implements BeanPostProcessor {
+	@Slf4j
+	static class B {
+		public void helloB() {
+			log.info("hello B");
+		}
+	}
 
-        @Override
-        public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-            log.info("beanName={} bean={}", beanName, bean);
-            if (bean instanceof A) {
-                return new B();
-            }
-            return bean;
-        }
-    }
+	@Slf4j
+	static class AToBPostProcessor implements BeanPostProcessor {
+		@Override
+		public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+			log.info("beanName= {}, bean= {}", beanName, bean);
+			if (bean instanceof A) {
+				return new B();
+			}
+			return bean;
+		}
+	}
+
 }
