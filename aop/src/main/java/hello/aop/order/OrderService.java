@@ -7,15 +7,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderService {
 
-    private final OrderRepository orderRepository;
+	private final OrderRepository orderRepository;
 
-    public OrderService(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
-    }
+	public OrderService(OrderRepository orderRepository) {
+		this.orderRepository = orderRepository;
+	}
 
-    public void orderItem(String itemId) {
-        log.info("[orderService] 실행");
-        orderRepository.save(itemId);
-    }
-
+	public void orderItem(String itemId) {
+		log.info("[orderService] 실행");
+		orderRepository.save(itemId);
+	}
 }
