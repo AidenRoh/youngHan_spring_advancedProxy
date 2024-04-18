@@ -12,12 +12,12 @@ import org.springframework.context.annotation.Import;
 @SpringBootTest
 class CallServiceV1Test {
 
-    @Autowired
-    CallServiceV1 callServiceV1;
+	@Autowired
+	CallServiceV1 callServiceV1;
 
-    @Test
-    void external() {
-        callServiceV1.external();
-    }
-
+	@Test
+	void external() {
+		log.info("target={}", callServiceV1.getClass());
+		callServiceV1.external();
+	}
 }

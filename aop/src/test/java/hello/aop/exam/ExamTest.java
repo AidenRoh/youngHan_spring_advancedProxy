@@ -9,19 +9,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
 @Slf4j
-//@Import(TraceAspect.class)
 @Import({TraceAspect.class, RetryAspect.class})
-@SpringBootTest
+@SpringBootTest(properties = "spring.aop.proxy-target-class=true")
 public class ExamTest {
 
-    @Autowired
-    ExamService examService;
+	@Autowired
+	ExamService examService;
 
-    @Test
-    void test() {
-        for (int i = 0; i < 5; i++) {
-            log.info("client request i={}", i);
-            examService.request("data" + i);
-        }
-    }
+	@Test
+	void test() {
+		for (int i = 1; i <= 5; i++) {
+			log.info("client request i={}", i);
+			examService.request("data" + i);
+		}
+	}
 }
