@@ -1,4 +1,4 @@
-package hello.aop.proxyvs.code;
+package hello.aop.proxyconspros.code;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -9,8 +9,8 @@ import org.aspectj.lang.annotation.Before;
 @Aspect
 public class ProxyDIAspect {
 
-    @Before("execution(* hello.aop..*.*(..))")
-    public void doTrace(JoinPoint joinPoint) {
-        log.info("[proxyDIAdvice] {}", joinPoint.getSignature());
-    }
+	@Before("execution(* hello.aop..*.*(..))")
+	public void doTrace(JoinPoint joinPoint) {
+		log.info("[proxyDIAdvice] {}", joinPoint.getSignature());
+	}
 }
