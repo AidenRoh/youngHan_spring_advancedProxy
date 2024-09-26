@@ -1,6 +1,6 @@
 package hello.proxy;
 
-import hello.proxy.config.v3_proxyfactory.ProxyFactoryConfigV2;
+import hello.proxy.config.v3_proxyfactory.ProxyFactoryConfigV1;
 import hello.proxy.trace.logtrace.LogTrace;
 import hello.proxy.trace.logtrace.ThreadLocalLogTrace;
 import org.springframework.boot.SpringApplication;
@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Import;
 //@Import(ConcreteProxyConfig.class)
 //@Import(DynamicProxyBasicConfig.class)
 //@Import(DynamicProxyFilterConfig.class)
-//@Import(ProxyFactoryConfigV1.class)
-@Import(ProxyFactoryConfigV2.class)
+@Import(ProxyFactoryConfigV1.class)
+//@Import(ProxyFactoryConfigV2.class)
 //@Import(BeanPostProcessorConfig.class)
 //@Import(AutoProxyConfig.class)
 //@Import(AppV1Config.class)
